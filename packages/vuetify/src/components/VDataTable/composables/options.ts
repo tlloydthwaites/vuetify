@@ -33,9 +33,10 @@ export function useOptions ({
   watch(options, value => {
     if (deepEqual(oldOptions, value)) return
 
-    // Reset page when searching
+    // Reset page when searching, and return to avoid double-emit
     if (oldOptions && oldOptions.search !== value.search) {
       page.value = 1
+      return
     }
 
     vm.emit('update:options', value)
